@@ -12,6 +12,8 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -54,7 +56,7 @@ public class YouTubeApiClientTest {
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(expectedJson, MediaType.APPLICATION_JSON));
 
-        // TODO: YouTubeApiResponse の parse がうまくいってなさそうなので、確認する
+        // TODO: YouTubeApiResponse の parse がうまくいったみたい
         YouTubeApiResponse actual = target.getComments(TEST_VIDEO_ID);
         YouTubeApiResponse expected = createResponse();
 
@@ -66,7 +68,8 @@ public class YouTubeApiClientTest {
      * 実際に curl で叩いた結果を元に作成している。
      */
     private String createExpectedJson() {
-        return "\"kind\": \"youtube#commentThreadListResponse\",\n" +
+        return  "{\n" +
+                "  \"kind\": \"youtube#commentThreadListResponse\",\n" +
                 "  \"etag\": \"pdIXZ8sOqfuWg60WNp4tP9379N0\",\n" +
                 "  \"nextPageToken\": \"QURTSl9pM0toRFpSXzRXNnRlM1czOGRULXZmS3FVMHh3X2pxT0hWTjkzTERxeWVwbTl3a0NRMmN6ZmxpTkZ3UEtOVl9EVFhCSVFkOUZPR3lDdWFRVHZZaVpJdWlBdUtpd3BycHBtT0Q2MjVHN25ZYzJhNWFPYzBrSTN1c1RuSEdVdmE1a2FWclk4WTZjRm1uWXpRUGVJajl1Z1RsVmF2b2NUempjUEhjaF9yNGxnYnRUdVFUcUxheF9aZl9JdUhUS0ZqTmJCS1ZTTld6Ulk1THVEcFc2eldEX2E5RU9CdTQxdlhYNWZSSTlJMngwNlNpOUR1TEVZemxfa1R2LVN4ZG8ydjJUd1oteUxLRjQ4MTN1V1hyM3JxRzhOYWJPU0E3WFZaSGJ4RkhIMUJnR21GeDlqVlJUUVh5WjFYcUJEc2VSV0MtRFo5UjhrWlZTazBpQ3BFTzdDUGV5OFBVSjktV2hBX0tQenhzeXZOMmJ6ODljVm1CeDZ3eXZaNGxteW00VmtZYWJ2aUQ2dWhEQUpwOXFSeWpQMWlJdTgwSWx2LWEwbThEdEZSZEpjbVlaeFFIb0c2MnpxU3VkdlZtUmkyYVVZMGxoQmNX\",\n" +
                 "  \"pageInfo\": {\n" +
@@ -133,11 +136,13 @@ public class YouTubeApiClientTest {
                 "            \"updatedAt\": \"2018-05-20T06:00:23Z\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"canReply\": true,\n" +
+                "      \"canReply\": true,\n" +
                 "        \"totalReplyCount\": 14,\n" +
                 "        \"isPublic\": true\n" +
                 "      }\n" +
-                "    },\n";
+                "    }\n" +
+                "  ]\n" +
+                "}";
     }
 
     private YouTubeApiResponse createResponse() {

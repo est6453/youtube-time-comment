@@ -3,6 +3,7 @@ package com.example.youtubetimecomment.infrastructure.resources;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -78,6 +79,45 @@ public class YouTubeApiResponse {
 
         @JsonProperty("topLevelComment")
         private TopLevelComment topLevelComment;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    public static class AuthorChannelId {
+        @JsonProperty("value")
+        private String value;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    public static class TopLevelComment {
+        @JsonProperty("kind")
+        private String kind;
+
+        @JsonProperty("etag")
+        private String etag;
+
+        @JsonProperty("id")
+        private String id;
+
+        @JsonProperty("snippet")
+        private SnippetInTopLevelComment snippetInTopLevelComment;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    public static class SnippetInTopLevelComment {
+        @JsonProperty("videoId")
+        private String videoId;
 
         @JsonProperty("textDisplay")
         private String textDisplay;
@@ -107,36 +147,9 @@ public class YouTubeApiResponse {
         private Integer likeCount;
 
         @JsonProperty("publishedAt")
-        private String publishedAt;
+        private Date publishedAt;
 
         @JsonProperty("updatedAt")
-        private String updatedAt;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @EqualsAndHashCode
-    public static class AuthorChannelId {
-        @JsonProperty("value")
-        private String value;
-
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @EqualsAndHashCode
-    public static class TopLevelComment {
-        @JsonProperty("kind")
-        private String kind;
-
-        @JsonProperty("etag")
-        private String etag;
-
-        @JsonProperty("id")
-        private String id;
+        private Date updatedAt;
     }
 }
